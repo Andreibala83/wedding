@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan & Maria — Wedding Invitation</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       COLORS — change these to match your motif
+       ========================================================= */
+    :root {
+      --wine: #5a1220;        /* main burgundy */
+      --wine-dark: #3f0b16;   /* darker burgundy */
+      --wine-soft: #6e2a36;   /* RSVP option boxes */
+      --ivory: #f8f4ee;       /* light background */
+      --cream: #eadfcd;       /* wax seal / accents */
+      --rose: #b07a82;        /* soft pink text */
+      --text-dark: #4a2a2f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: #2a070e;
+      color: var(--text-dark);
+    }
+
+    /* Everything sits in a phone-width column */
+    .page { max-width: 480px; margin: 0 auto; background: var(--ivory); min-height: 100vh; }
+
+    .script { font-family: 'Pinyon Script', cursive; font-weight: 400; }
+    .caps { text-transform: uppercase; letter-spacing: 4px; }
+
+    /* =========================================================
+       SCROLL ENVELOPE (opens as you scroll)
+       ========================================================= */
+    .stage-wrap { height: 380vh; position: relative; }   /* longer = slower animation */
+    .stage {
+      position: sticky; top: 0; height: 100vh; overflow: hidden;
+      background: var(--ivory);
+    }
+    .env {
+      --W: min(78vw, 360px);
+      position: absolute; left: 50%; top: 52%;
+      width: var(--W); height: calc(var(--W) * 0.72);
+      margin-left: calc(var(--W) / -2); margin-top: calc(var(--W) * -0.36);
+      transform-origin: center center;
+      perspective: 900px;
+      will-change: transform;
+    }
+    .env-back {
+      position: absolute; inset: 0; background: var(--wine-dark); border-radius: 3px;
+      z-index: 1;
+    }
+    .env-photo {
+      position: absolute; left: 6%; width: 88%; top: 6%; height: 88%;
+      background: #d9cbb8 url('cover.jpg') center/cover no-repeat;
+      border: 5px solid #fff; box-shadow: 0 8px 22px rgba(0,0,0,.28);
+      z-index: 2; will-change: transform;
+    }
+    .env-front {
+      position: absolute; inset: 0; z-index: 3;
+      background: linear-gradient(160deg, #6a1727, var(--wine) 60%, #4c0e1a);
+      clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+      border-radius: 3px;
+    }
+    .env-front::after {           /* side folds */
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(to top right, transparent 49.6%, rgba(0,0,0,.18) 50%, transparent 50.6%),
+        linear-gradient(to top left,  transparent 49.6%, rgba(0,0,0,.18) 50%, transparent 50.6%);
+    }
+    .env-flap {
+      position: absolute; left: 0; top: 0; width: 100%; height: 66%;
+      transform-origin: top center; z-index: 4;
+      will-change: transform;
+    }
+    .env-flap svg { width: 100%; height: 100%; display: block; overflow: visible;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,.35)); }
+
+    .seal {
+      position: absolute; left: 50%; z-index: 6;
+      transform: translate(-50%, -50%);
+      will-change: transform, opacity;
+    }
+    .seal svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 10px rgba(0,0,0,.4)); }
+
+    .cover-text {
+      position: absolute; top: 12%; left: 0; right: 0; text-align: center;
+      color: var(--cream); z-index: 7;
+    }
+    .cover-text .from { font-size: 13px; letter-spacing: 5px; opacity: .85; }
+    .cover-text .names { margin-top: 26px; font-size: 34px; letter-spacing: 10px; line-height: 1.3; }
+    .cover-text .names .amp {
+      font-family: 'Pinyon Script', cursive; letter-spacing: 0;
+      font-size: 54px; display: block; line-height: .9; opacity: .9;
+    }
+    .scroll-hint {
+      position: absolute; bottom: 5%; left: 0; right: 0; text-align: center;
+      color: var(--cream); font-size: 12px; letter-spacing: 5px; z-index: 7;
+    }
+    .scroll-hint .arrow { display: block; font-size: 18px; margin-top: 6px; animation: bob 1.6s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+    .stage-text {
+      position: absolute; left: 0; right: 0; bottom: 7%;
+      text-align: center; z-index: 5; opacity: 0;
+    }
+
+    /* =========================================================
+       SECTIONS
+       ========================================================= */
+    section { padding: 70px 26px; text-align: center; }
+    .light { background: var(--ivory); color: var(--text-dark); }
+    .dark  { background: var(--wine-dark); color: var(--cream); }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+
+    .moment { margin-top: 0; font-size: 14px; letter-spacing: 3px; color: var(--rose); }
+    .married { font-size: 46px; color: var(--wine); margin: 6px 0 12px; }
+    .joinus { font-size: 15px; letter-spacing: 3px; color: var(--rose); line-height: 2; }
+
+    .ornament { width: 70px; margin: 14px auto; display: block; }
+
+    /* Couple */
+    .couple { display: flex; gap: 18px; justify-content: center; margin-top: 10px; }
+    .person { flex: 1; }
+    .person img {
+      display: inline-block;
+      width: 120px; height: 150px; object-fit: cover;
+      border-radius: 60px 60px 6px 6px; background: #e3d6c4;
+      border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    }
+    .person h3 { font-size: 22px; font-weight: 500; margin-top: 10px; color: var(--wine); }
+    .person p { font-size: 14px; color: #7d6267; font-style: italic; }
+    .section-title { font-size: 44px; color: var(--wine); margin-bottom: 18px; }
+    .dark .section-title { color: var(--cream); }
+    .verse { margin-top: 26px; font-style: italic; font-size: 17px; color: #7d6267; }
+
+    /* Calendar */
+    .cal-month { font-size: 24px; letter-spacing: 3px; margin-bottom: 16px; }
+    .calendar {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 10px 0; max-width: 320px; margin: 0 auto; font-size: 17px;
+    }
+    .calendar .dow { font-size: 12px; letter-spacing: 2px; opacity: .6; }
+    .calendar .day { position: relative; height: 30px; line-height: 30px; }
+    .calendar .wedding svg {
+      position: absolute; left: 50%; top: 50%; width: 46px; height: 46px;
+      transform: translate(-50%, -52%); overflow: visible;
+    }
+    .calendar .wedding svg path {
+      stroke-dasharray: 160; stroke-dashoffset: 160;
+      animation: draw 2s ease forwards 0.5s;
+    }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+
+    .btn-light {
+      display: inline-block; margin-top: 26px; padding: 9px 22px;
+      background: var(--ivory); color: var(--wine-dark); text-decoration: none;
+      font-size: 12px; letter-spacing: 3px; border-radius: 3px;
+      font-family: inherit; font-weight: 600;
+    }
+
+    /* Details */
+    .detail { margin-bottom: 34px; }
+    .detail h3 { font-size: 30px; color: var(--wine); font-weight: 400; }
+    .detail .time { font-size: 15px; letter-spacing: 3px; color: var(--rose); margin: 4px 0; }
+    .detail p { font-size: 17px; }
+    .detail a { font-size: 13px; letter-spacing: 2px; color: var(--wine); }
+    .swatches { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
+    .swatches span { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.2); }
+
+    /* Entourage */
+    .ent-group { margin-bottom: 22px; }
+    .ent-group h4 { font-size: 13px; letter-spacing: 4px; color: var(--rose); font-weight: 600; margin-bottom: 4px; }
+    .ent-group p { font-size: 18px; line-height: 1.5; }
+
+    /* Gallery */
+    .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .gallery img { width: 100%; height: 170px; object-fit: cover; background: #e3d6c4; }
+    .gallery img:first-child,
+    .gallery img:last-child { grid-column: span 2; height: 230px; }
+
+    /* =========================================================
+       RSVP
+       ========================================================= */
+    .rsvp-wrap {
+      background:
+        linear-gradient(rgba(234,223,205,.55), rgba(234,223,205,.55)),
+        repeating-linear-gradient(45deg, #d8cab4 0 2px, #e4d8c5 2px 12px);
+      padding: 60px 20px;
+    }
+    .rsvp-intro { font-size: 13px; letter-spacing: 2px; color: var(--text-dark); margin-bottom: 20px; line-height: 1.7; }
+    .rsvp-card {
+      background: var(--wine-dark); color: var(--cream);
+      border: 1px solid #c9a99a; border-radius: 10px;
+      padding: 24px 20px; text-align: left;
+      box-shadow: 0 0 0 4px rgba(63,11,22,.15);
+    }
+    .rsvp-card label.q { display: block; font-size: 16px; font-weight: 600; margin: 18px 0 8px; }
+    .rsvp-card label.q:first-child { margin-top: 0; }
+    .rsvp-card input[type=text], .rsvp-card input[type=email], .rsvp-card textarea {
+      width: 100%; padding: 10px 12px; background: transparent;
+      border: 1px solid #b98c93; border-radius: 4px; color: #fff;
+      font-family: inherit; font-size: 16px;
+    }
+    .rsvp-card input:focus, .rsvp-card textarea:focus { outline: none; border-color: #fff; }
+
+    /* Tap-to-pick option boxes */
+    .opt input { display: none; }
+    .opt span {
+      display: block; padding: 11px 12px; margin-bottom: 7px;
+      background: var(--wine-soft); border-radius: 3px; font-size: 16px;
+      cursor: pointer; transition: all .2s;
+    }
+    .opt input:checked + span { background: #fff; color: var(--wine-dark); }
+
+    .submit {
+      width: 100%; margin-top: 22px; padding: 12px;
+      background: #fff; color: var(--wine-dark); border: none;
+      border-radius: 30px; font-family: inherit; font-size: 16px;
+      font-weight: 600; letter-spacing: 2px; cursor: pointer;
+    }
+    .submit:disabled { opacity: .6; }
+    #rsvpMsg { margin-top: 14px; text-align: center; font-size: 16px; }
+
+    /* Countdown */
+    .countdown { display: flex; justify-content: center; align-items: flex-start; gap: 6px; font-size: 40px; }
+    .countdown .unit { text-align: center; min-width: 58px; }
+    .countdown small { display: block; font-size: 10px; letter-spacing: 2px; opacity: .7; }
+    .countdown .colon { opacity: .6; }
+    .follow { font-size: 34px; margin-top: 22px; opacity: .9; }
+
+    /* Closing card */
+    .closing { padding: 60px 26px 80px; }
+    .lace-card {
+      background: #fbf9f5; padding: 40px 24px;
+      border: 1px solid #e0d4c3;
+      outline: 1px dashed #cdbca5; outline-offset: -12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    }
+    .lace-card .withlove { font-size: 13px; letter-spacing: 5px; color: var(--rose); }
+    .lace-card .mono { font-size: 64px; color: var(--wine); line-height: 1.2; }
+    .lace-card p { font-size: 15px; }
+    .lace-card a { color: var(--wine); }
+
+    /* Music button */
+    .music {
+      position: fixed; right: 16px; bottom: 16px; z-index: 40;
+      width: 44px; height: 44px; border-radius: 50%; border: none;
+      background: var(--wine); color: var(--cream); font-size: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.3); cursor: pointer; display: none;
+    }
+    .music.has-audio { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- Background music (optional): put a file named music.mp3 in the folder -->
+  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+  <button class="music" id="musicBtn" aria-label="Toggle music">♪</button>
+
+  <main class="page">
+
+    <!-- =========================================================
+         SCROLL ENVELOPE — opens while scrolling
+         ========================================================= -->
+    <div class="stage-wrap" id="stageWrap">
+      <div class="stage">
+
+        <div class="env" id="env">
+          <div class="env-back"></div>
+          <div class="env-photo" id="envPhoto"></div>
+          <div class="env-front"></div>
+          <div class="env-flap" id="envFlap">
+            <svg viewBox="0 0 400 240" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="flapGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#7a1f31"/>
+                  <stop offset="1" stop-color="#651828"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,0 L400,0 L400,8 L200,240 L0,8 Z" fill="url(#flapGrad)"/>
+              <path d="M0,8 L200,240 L400,8" fill="none" stroke="#8a2c3e" stroke-width="5" stroke-dasharray="1 7" stroke-linecap="round" opacity=".9" vector-effect="non-scaling-stroke"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="seal" id="seal">
+            <svg viewBox="0 0 120 130">
+              <defs>
+                <radialGradient id="wax" cx="40%" cy="35%" r="70%">
+                  <stop offset="0" stop-color="#f7efe2"/>
+                  <stop offset=".6" stop-color="#e6d8c2"/>
+                  <stop offset="1" stop-color="#c9b597"/>
+                </radialGradient>
+              </defs>
+              <path d="M60,4 C80,2 96,10 106,24 C118,38 118,56 114,72 C118,92 106,112 88,120 C74,128 52,129 36,122 C16,114 4,98 6,78 C2,60 2,40 12,26 C22,12 40,4 60,4 Z" fill="url(#wax)"/>
+              <ellipse cx="60" cy="66" rx="38" ry="44" fill="none" stroke="#c4ad8c" stroke-width="2"/>
+              <ellipse cx="60" cy="66" rx="32" ry="38" fill="none" stroke="#d6c4a6" stroke-width="1"/>
+              <text x="60" y="78" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="34" fill="#b49a76">J&amp;M</text>
+            </svg>
+        </div>
+
+        <div class="cover-text" id="coverText">
+          <div class="from caps">A love letter from</div>
+          <div class="names caps">Juan<span class="amp">&amp;</span>Maria</div>
+        </div>
+
+        <div class="scroll-hint caps" id="scrollHint">Scroll to open<span class="arrow">&#8964;</span></div>
+
+        <div class="stage-text" id="stageText">
+          <p class="moment">The moment has arrived…</p>
+          <h1 class="married script">We're getting Married</h1>
+        </div>
+
+      </div>
+    </div>
+
+    <section class="light" style="padding-top:10px;">
+      <svg class="ornament reveal" viewBox="0 0 100 20"><path d="M0,10 H38 M62,10 H100" stroke="#b07a82" stroke-width="1"/><path d="M50,3 C46,8 46,12 50,17 C54,12 54,8 50,3 Z" fill="#b07a82"/></svg>
+      <p class="joinus reveal">
+        JOIN US IN<br>
+        Davao City<br>
+        On Saturday, 12 December 2026
+      </p>
+    </section>
+
+    <!-- =========================================================
+         CALENDAR
+         ========================================================= -->
+    <section class="dark">
+      <div class="cal-month caps" id="calMonth"></div>
+      <div class="calendar" id="calendar"></div>
+      <a class="btn-light caps" id="addCal" target="_blank">Add to calendar</a>
+    </section>
+
+    <!-- =========================================================
+         THE COUPLE
+         ========================================================= -->
+    <section class="light">
+      <h2 class="section-title script reveal">The Couple</h2>
+      <div class="couple reveal">
+        <div class="person">
+          <img src="groom.jpg" alt="">
+          <h3>Juan Dela Cruz</h3>
+          <p>Son of Mr. &amp; Mrs.<br>Pedro Dela Cruz</p>
+        </div>
+        <div class="person">
+          <img src="bride.jpg" alt="">
+          <h3>Maria Santos</h3>
+          <p>Daughter of Mr. &amp; Mrs.<br>Jose Santos</p>
+        </div>
+      </div>
+      <p class="verse reveal">"So they are no longer two, but one flesh."<br>— Matthew 19:6</p>
+    </section>
+
+    <!-- =========================================================
+         DETAILS
+         ========================================================= -->
+    <section class="light" style="padding-top:20px;">
+      <h2 class="section-title script reveal">The Details</h2>
+
+      <div class="detail reveal">
+        <h3 class="script">Ceremony</h3>
+        <div class="time caps">2:00 in the afternoon</div>
+        <p>San Pedro Cathedral, Davao City</p>
+        <a href="https://maps.google.com" target="_blank" class="caps">View map</a>
+      </div>
+
+      <div class="detail reveal">
+        <h3 class="script">Reception</h3>
+        <div class="time caps">5:00 in the evening</div>
+        <p>Grand Ballroom, Sample Hotel, Davao City</p>
+        <a href="https://maps.google.com" target="_blank" class="caps">View map</a>
+      </div>
+
+      <div class="detail reveal">
+        <h3 class="script">Dress Code</h3>
+        <p>Formal attire in our motif</p>
+        <div class="swatches">
+          <span style="background:#5a1220"></span>
+          <span style="background:#b07a82"></span>
+          <span style="background:#eadfcd"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         ENTOURAGE
+         ========================================================= -->
+    <section class="dark">
+      <h2 class="section-title script">Entourage</h2>
+      <div class="ent-group">
+        <h4 class="caps">Principal Sponsors</h4>
+        <p>Mr. &amp; Mrs. Name Surname<br>Mr. &amp; Mrs. Name Surname</p>
+      </div>
+      <div class="ent-group">
+        <h4 class="caps">Best Man</h4>
+        <p>Name Surname</p>
+      </div>
+      <div class="ent-group">
+        <h4 class="caps">Maid of Honor</h4>
+        <p>Name Surname</p>
+      </div>
+      <div class="ent-group">
+        <h4 class="caps">Groomsmen</h4>
+        <p>Name Surname<br>Name Surname</p>
+      </div>
+      <div class="ent-group">
+        <h4 class="caps">Bridesmaids</h4>
+        <p>Name Surname<br>Name Surname</p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         GALLERY
+         ========================================================= -->
+    <section class="light">
+      <h2 class="section-title script reveal">Our Moments</h2>
+      <div class="gallery reveal">
+        <img src="photo1.jpg" alt="">
+        <img src="photo2.jpg" alt="">
+        <img src="photo3.jpg" alt="">
+        <img src="photo4.jpg" alt="">
+        <img src="photo5.jpg" alt="">
+        <img src="photo6.jpg" alt="">
+      </div>
+    </section>
+
+    <!-- =========================================================
+         RSVP
+         ========================================================= -->
+    <div class="rsvp-wrap" id="rsvp">
+      <p class="rsvp-intro caps">We'd love to know if you can join us.<br>Please reply by 30 November 2026.</p>
+
+      <form class="rsvp-card" id="rsvpForm">
+        <label class="q" for="name">Your name*</label>
+        <input type="text" id="name" name="name" required>
+
+        <label class="q">Will you be attending our wedding?*</label>
+        <label class="opt"><input type="radio" name="attend" value="Joyfully accepts" required><span>Joyfully accepts</span></label>
+        <label class="opt"><input type="radio" name="attend" value="Regretfully declines"><span>Regretfully declines</span></label>
+
+        <label class="q">How many guests will attend, including you?</label>
+        <label class="opt"><input type="radio" name="guests" value="1" checked><span>1</span></label>
+        <label class="opt"><input type="radio" name="guests" value="2"><span>2</span></label>
+
+        <label class="q" for="email">Enter your email*</label>
+        <input type="email" id="email" name="email" required>
+
+        <label class="q" for="message">Message for the couple</label>
+        <textarea id="message" name="message" rows="3"></textarea>
+
+        <button type="submit" class="submit caps">Submit</button>
+        <p id="rsvpMsg"></p>
+      </form>
+    </div>
+
+    <!-- =========================================================
+         COUNTDOWN
+         ========================================================= -->
+    <section class="dark">
+      <div class="countdown">
+        <div class="unit"><span id="days">0</span><small>DAYS</small></div><span class="colon">:</span>
+        <div class="unit"><span id="hours">0</span><small>HOURS</small></div><span class="colon">:</span>
+        <div class="unit"><span id="minutes">0</span><small>MINUTES</small></div><span class="colon">:</span>
+        <div class="unit"><span id="seconds">0</span><small>SECONDS</small></div>
+      </div>
+      <p class="follow script">See you on our special day</p>
+    </section>
+
+    <!-- =========================================================
+         CLOSING CARD
+         ========================================================= -->
+    <section class="light closing">
+      <div class="lace-card reveal">
+        <div class="withlove caps">With love</div>
+        <div class="mono script">J&amp;M</div>
+        <p>Questions?<br>Please contact the bride and groom via email.</p>
+        <p style="margin-top:8px;"><a href="mailto:wedding@email.com">wedding@email.com</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* =========================================================
+       SETTINGS — change these
+       ========================================================= */
+    const WEDDING_DATE = new Date("2026-12-12T14:00:00");   // date + ceremony time
+    const EVENT_TITLE  = "Juan & Maria's Wedding";
+    const EVENT_PLACE  = "San Pedro Cathedral, Davao City";
+    const SCRIPT_URL   = "PASTE_YOUR_WEB_APP_URL_HERE";       // Google Apps Script URL
+
+    /* ---------- Envelope opens while scrolling ---------- */
+    const stageWrap = document.getElementById("stageWrap");
+    const env = document.getElementById("env");
+    const flap = document.getElementById("envFlap");
+    const photo = document.getElementById("envPhoto");
+    const seal = document.getElementById("seal");
+    const coverText = document.getElementById("coverText");
+    const hint = document.getElementById("scrollHint");
+    const stageText = document.getElementById("stageText");
+
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const range = (p, a, b) => clamp((p - a) / (b - a));         // 0..1 inside [a,b]
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const easeInOut = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
+    const easeOutBack = t => { const c = 1.9, c3 = c + 1; return 1 + c3*Math.pow(t-1,3) + c*Math.pow(t-1,2); }; // the "pop"
+
+    function animateEnvelope() {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const rect = stageWrap.getBoundingClientRect();
+      const p = clamp(-rect.top / (rect.height - vh));          // scroll progress 0..1
+
+      const W = env.offsetWidth, H = env.offsetHeight;
+      // Start: envelope fills the whole screen. End: normal size.
+      const sx0 = (vw / W) * 1.04, sy0 = (vh / H) * 1.35;
+      const k = easeInOut(range(p, 0, .3));
+      const sx = lerp(sx0, 1, k), sy = lerp(sy0, 1, k);
+      env.style.transform = `scale(${sx}, ${sy})`;
+
+      // 1) Names + hint fade out
+      coverText.style.opacity = 1 - range(p, 0, .12);
+      hint.style.opacity = 1 - range(p, 0, .05);
+
+      // Seal follows the tip of the flap, then fades away
+      const centerY = vh * .52;
+      const tipY = centerY + (H * .66 - H / 2) * sy;
+      const sealW = lerp(120, 56, k);
+      seal.style.width = sealW + "px";
+      seal.style.height = sealW * 1.08 + "px";
+      seal.style.top = tipY + "px";
+      const sealFade = range(p, .3, .38);
+      seal.style.opacity = 1 - sealFade;
+      seal.style.transform = `translate(-50%, -50%) scale(${1 - sealFade * .4})`;
+
+      // 2) Flap opens upward
+      const f = easeInOut(range(p, .34, .52));
+      flap.style.transform = `rotateX(${f * 180}deg)`;
+      flap.style.zIndex = f > .5 ? 0 : 4;                       // goes behind once open
+
+      // 3) Photo pops up from inside the envelope
+      const r = range(p, .52, .82);
+      const pop = easeOutBack(r);
+      photo.style.transform =
+        `translateY(${-80 * pop}%) rotate(${-3 * r}deg) scale(${.94 + .06 * pop})`;
+
+      // 4) "We're getting married" fades in
+      const t = range(p, .8, .95);
+      stageText.style.opacity = t;
+      stageText.style.transform = `translateY(${(1 - t) * 20}px)`;
+    }
+
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) { requestAnimationFrame(() => { animateEnvelope(); ticking = false; }); ticking = true; }
+    }, { passive: true });
+    window.addEventListener("resize", animateEnvelope);
+    animateEnvelope();
+
+    /* ---------- Music (browsers only allow it after the first tap) ---------- */
+    const bgm = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
+    bgm.addEventListener("canplay", () => musicBtn.classList.add("has-audio"));
+    const startMusic = () => { bgm.play().catch(() => {}); };
+    ["pointerdown", "touchstart", "keydown"].forEach(ev =>
+      window.addEventListener(ev, startMusic, { once: true }));
+    musicBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      if (bgm.paused) { bgm.play(); musicBtn.style.opacity = 1; }
+      else { bgm.pause(); musicBtn.style.opacity = .5; }
+    });
+
+    /* ---------- Fade-in on scroll ---------- */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    /* ---------- Calendar with heart on the wedding day ---------- */
+    (function buildCalendar() {
+      const y = WEDDING_DATE.getFullYear(), m = WEDDING_DATE.getMonth(), d = WEDDING_DATE.getDate();
+      const monthName = WEDDING_DATE.toLocaleString("en-US", { month: "long" });
+      document.getElementById("calMonth").textContent = monthName + " " + y;
+
+      const cal = document.getElementById("calendar");
+      ["S","M","T","W","T","F","S"].forEach(x => cal.innerHTML += `<div class="dow">${x}</div>`);
+      const firstDay = new Date(y, m, 1).getDay();
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      for (let i = 0; i < firstDay; i++) cal.innerHTML += `<div></div>`;
+      for (let i = 1; i <= daysInMonth; i++) {
+        if (i === d) {
+          cal.innerHTML += `<div class="day wedding">${i}
+            <svg viewBox="0 0 50 46"><path d="M25,42 C10,32 2,24 2,14 C2,7 8,2 14,2 C19,2 23,5 25,9 C27,5 31,2 36,2 C42,2 48,7 48,14 C48,24 40,32 25,42 Z" fill="none" stroke="#eadfcd" stroke-width="1.5"/></svg></div>`;
+        } else {
+          cal.innerHTML += `<div class="day">${i}</div>`;
+        }
+      }
+
+      // Google Calendar link
+      const pad = n => String(n).padStart(2, "0");
+      const fmt = dt => dt.getFullYear() + pad(dt.getMonth()+1) + pad(dt.getDate()) + "T" + pad(dt.getHours()) + pad(dt.getMinutes()) + "00";
+      const end = new Date(WEDDING_DATE.getTime() + 8 * 3600000);
+      document.getElementById("addCal").href =
+        "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+        "&text=" + encodeURIComponent(EVENT_TITLE) +
+        "&dates=" + fmt(WEDDING_DATE) + "/" + fmt(end) +
+        "&location=" + encodeURIComponent(EVENT_PLACE);
+    })();
+
+    /* ---------- Countdown ---------- */
+    function updateCountdown() {
+      const diff = WEDDING_DATE - Date.now();
+      if (diff <= 0) {
+        document.querySelector(".countdown").innerHTML = "<span class='script'>Today is the day!</span>";
+        return;
+      }
+      const pad = n => String(n).padStart(2, "0");
+      document.getElementById("days").textContent    = Math.floor(diff / 86400000);
+      document.getElementById("hours").textContent   = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById("minutes").textContent = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById("seconds").textContent = pad(Math.floor((diff % 60000) / 1000));
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* ---------- RSVP → Google Sheets ---------- */
+    const form = document.getElementById("rsvpForm");
+    const msg = document.getElementById("rsvpMsg");
+    const submitBtn = form.querySelector(".submit");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      msg.textContent = "";
+
+      fetch(SCRIPT_URL, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          msg.textContent = "Thank you, " + name + "! Your RSVP has been received.";
+          form.reset();
+        })
+        .catch(() => { msg.textContent = "Sorry, something went wrong. Please try again."; })
+        .finally(() => { submitBtn.disabled = false; submitBtn.textContent = "Submit"; });
+    });
+  </script>
+</body>
+</html>
