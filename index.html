@@ -6,9 +6,20 @@
   <meta name="theme-color" content="#5a0016">
   <title>Vitali & Ginelle — Wedding Invitation</title>
   <meta name="description" content="Vitali Skatskov & Ginelle B. Deypalubos — Saturday, November 28, 2026">
-  <meta property="og:title" content="Vitali & Ginelle — We're getting married">
-  <meta property="og:description" content="Saturday, November 28, 2026 · Titay & Ipil, Zamboanga Sibugay">
-  <meta property="og:image" content="images/cover.jpg">
+  <!-- Link preview (Messenger, Facebook, Viber, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vitali-ginelle-wedding-invitation.vercel.app/">
+  <meta property="og:site_name" content="Vitali & Ginelle">
+  <meta property="og:title" content="Vitali & Ginelle — We're getting married!">
+  <meta property="og:description" content="You are invited · Saturday, November 28, 2026 · Titay & Ipil, Zamboanga Sibugay">
+  <meta property="og:image" content="https://vitali-ginelle-wedding-invitation.vercel.app/images/cover.jpg">
+  <meta property="og:image:secure_url" content="https://vitali-ginelle-wedding-invitation.vercel.app/images/cover.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="2048">
+  <meta property="og:image:height" content="1365">
+  <meta property="og:image:alt" content="Vitali and Ginelle">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vitali-ginelle-wedding-invitation.vercel.app/images/cover.jpg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,10 +112,10 @@
         repeating-linear-gradient(45deg, rgba(200,164,100,.12) 0 2px, transparent 2px 14px),
         var(--burgundy-ink);
     }
-    .env-photo { position: absolute; left: 6%; width: 88%; top: 6%; border: 6px solid #fff; background: #fff; box-shadow: 0 10px 26px rgba(0,0,0,.3); z-index: 2; will-change: transform; }
+    .env-photo { position: absolute; left: 6%; width: 88%; top: 6%; border: 6px solid #fff; background: #fff; box-shadow: 0 10px 26px rgba(0,0,0,.3); z-index: 3; will-change: transform; }
     .env-photo img { width: 100%; height: auto; }
     .env-front {
-      position: absolute; inset: 0; z-index: 3; border-radius: 3px;
+      position: absolute; inset: 0; z-index: 4; border-radius: 3px;
       background: linear-gradient(160deg, #96122f, var(--burgundy) 55%, var(--burgundy-deep));
       clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
     }
@@ -114,7 +125,7 @@
         linear-gradient(to top right, transparent 49.6%, rgba(0,0,0,.2) 50%, transparent 50.6%),
         linear-gradient(to top left,  transparent 49.6%, rgba(0,0,0,.2) 50%, transparent 50.6%);
     }
-    .env-flap { position: absolute; left: 0; top: 0; width: 100%; height: 66%; transform-origin: top center; z-index: 4; will-change: transform; }
+    .env-flap { position: absolute; left: 0; top: 0; width: 100%; height: 66%; transform-origin: top center; z-index: 5; will-change: transform; }
     .env-flap svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 6px 8px rgba(0,0,0,.35)); }
 
     .seal { position: absolute; left: 50%; z-index: 6; transform: translate(-50%, -50%); will-change: transform, opacity; }
@@ -254,7 +265,7 @@
     /* =========================================================
        RSVP
        ========================================================= */
-    .rsvp-intro { font-size: 19px; font-style: italic; margin: -10px auto 26px; max-width: 460px; opacity: .92; }
+    .rsvp-intro { font-size: 19px; font-style: italic; margin: -10px auto 48px; max-width: 460px; opacity: .92; }
     .rsvp-card { max-width: 480px; margin: 0 auto; background: var(--paper), var(--ivory); color: var(--text); padding: 34px 24px; text-align: left; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
     .rsvp-card::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--gold); pointer-events: none; }
     .rsvp-card label.q { display: block; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: .14em; color: var(--burgundy); margin: 20px 0 8px; }
@@ -296,6 +307,58 @@
     .music.has-audio { display: block; }
 
     /* =========================================================
+       FLOWERS & DECORATIONS
+       ========================================================= */
+    /* Roses rising out of the envelope */
+    .flower { position: absolute; top: 2%; width: 60%; z-index: 2; will-change: transform; }
+    .flower svg, .sprig svg, .deco svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .flower.l { left: 2%; }
+    .flower.r { right: 2%; }
+    .flower.r svg { transform: scaleX(-1); }
+    .sprig { position: absolute; left: -11%; bottom: -13%; width: 34%; z-index: 6; opacity: 0; transform-origin: 30% 80%; will-change: transform, opacity; pointer-events: none; }
+    .sprig svg { transform: rotate(-15deg); }
+
+    /* Decorative flowers placed around the page */
+    .deco { position: absolute; pointer-events: none; z-index: 2; }
+    .garland { display: block; width: min(280px, 78%); margin: 0 auto 6px; }
+    .garland svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+    .has-flowers { position: relative; }
+    .couple-photo-wrap .deco.bl { width: 40%; left: -14%; bottom: -9%; transform: rotate(-20deg); }
+    .couple-photo-wrap .deco.tr { width: 36%; right: -14%; top: -10%; transform: rotate(150deg) scaleX(-1); }
+
+    .frame .garland.top { position: absolute; left: 50%; top: 0; width: min(300px, 76%); transform: translate(-50%, -52%); margin: 0; z-index: 3; }
+    .frame.has-top-garland { padding-top: 76px; }
+
+    .rsvp-card .deco.tr { width: 30%; max-width: 140px; right: -8%; top: -7%; transform: rotate(160deg) scaleX(-1); z-index: 3; }
+    .rsvp-card .deco.bl { width: 28%; max-width: 130px; left: -8%; bottom: -8%; transform: rotate(-30deg); z-index: 3; }
+
+    .gallery figure { position: relative; }
+    .gallery figure .deco { width: 30%; max-width: 150px; }
+    .gallery figure:nth-child(1) .deco { left: -9%; top: -12%; transform: rotate(-150deg) scaleX(-1); }
+    .gallery figure:nth-child(2) .deco { right: -9%; bottom: -12%; transform: rotate(-30deg) scaleX(-1); }
+
+    .closing-frame .deco.bl { width: 30%; max-width: 140px; left: -9%; bottom: -12%; transform: rotate(-20deg); }
+    .closing-frame .deco.br { width: 30%; max-width: 140px; right: -9%; bottom: -12%; transform: rotate(20deg) scaleX(-1); }
+
+    .detail-card { position: relative; }
+    .detail-card .mini-garland { width: 150px; margin: -6px auto 10px; display: block; }
+
+    /* Gold sparkles on burgundy sections */
+    .sparkle { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--gold-light); box-shadow: 0 0 8px 2px rgba(227,204,156,.6); opacity: 0; pointer-events: none; animation: twinkle 4s ease-in-out infinite; }
+    @keyframes twinkle { 0%,100% { opacity: 0; transform: scale(.4); } 50% { opacity: .9; transform: scale(1); } }
+    .bg-burgundy > *:not(.sparkle), .bg-ink > *:not(.sparkle) { position: relative; z-index: 1; }
+
+    /* Falling rose petals */
+    .petals { position: fixed; inset: 0; pointer-events: none; z-index: 30; overflow: hidden; }
+    .petal { position: absolute; top: -40px; width: 14px; height: 18px; border-radius: 80% 0 80% 0; opacity: .75; animation: fall linear infinite; }
+    @keyframes fall {
+      0%   { transform: translate3d(0, -40px, 0) rotate(0deg); }
+      50%  { transform: translate3d(40px, 50vh, 0) rotate(200deg); }
+      100% { transform: translate3d(-20px, 110vh, 0) rotate(420deg); }
+    }
+
+    /* =========================================================
        RESPONSIVE
        ========================================================= */
     .frame .eyebrow { color: var(--burgundy-soft); }
@@ -318,6 +381,7 @@
       .corner { width: 84px; height: 84px; }
     }
     @media (prefers-reduced-motion: reduce) {
+      .petals, .sparkle { display: none; }
       .reveal { transition: none; opacity: 1; transform: none; }
     }
   </style>
@@ -326,6 +390,95 @@
 
   <!-- Reusable gold ornaments -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <radialGradient id="gRed" cx="45%" cy="40%" r="65%">
+        <stop offset="0" stop-color="#c2304f"/><stop offset=".7" stop-color="#8c1430"/><stop offset="1" stop-color="#5e0a1c"/>
+      </radialGradient>
+      <radialGradient id="gBlush" cx="45%" cy="40%" r="65%">
+        <stop offset="0" stop-color="#fdeef0"/><stop offset=".7" stop-color="#eab3bf"/><stop offset="1" stop-color="#c47d8e"/>
+      </radialGradient>
+      <g id="rose-red">
+        <circle r="18" fill="url(#gRed)"/>
+        <path d="M-17 -3 C-15 -15 4 -20 15 -10" fill="none" stroke="#5e0a1c" stroke-width="1.2" opacity=".7"/>
+        <path d="M-15 6 C-10 16 10 17 16 5" fill="none" stroke="#5e0a1c" stroke-width="1.2" opacity=".6"/>
+        <path d="M-10 2 C-11 -8 7 -11 10 -2 C12 7 -3 11 -6 4 C-8 -1 0 -5 3 -2 C5 1 1 3 -1 1" fill="none" stroke="#e07a90" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <g id="rose-blush">
+        <circle r="18" fill="url(#gBlush)"/>
+        <path d="M-17 -3 C-15 -15 4 -20 15 -10" fill="none" stroke="#b46779" stroke-width="1.2" opacity=".8"/>
+        <path d="M-15 6 C-10 16 10 17 16 5" fill="none" stroke="#b46779" stroke-width="1.2" opacity=".7"/>
+        <path d="M-10 2 C-11 -8 7 -11 10 -2 C12 7 -3 11 -6 4 C-8 -1 0 -5 3 -2 C5 1 1 3 -1 1" fill="none" stroke="#b5596d" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <g id="leaf">
+        <path d="M0 0 C8 -9 26 -10 36 0 C26 10 8 9 0 0 Z" fill="#6f805a"/>
+        <path d="M3 0 H31" stroke="#4c5a3b" stroke-width=".8"/>
+      </g>
+      <g id="bb">
+        <g stroke="#8b9474" stroke-width=".7" fill="none"><path d="M0 0 L-6 -10 M0 0 L4 -12 M0 0 L10 -6 M-6 -10 L-10 -15 M4 -12 L2 -19"/></g>
+        <g fill="#fffaf2" stroke="#e5d6c3" stroke-width=".5">
+          <circle cx="-6" cy="-10" r="2.4"/><circle cx="-10" cy="-15" r="2.1"/><circle cx="4" cy="-12" r="2.4"/>
+          <circle cx="2" cy="-19" r="2.1"/><circle cx="10" cy="-6" r="2.3"/><circle cx="-1" cy="-7" r="1.7"/>
+        </g>
+      </g>
+    </defs>
+    <symbol id="bouquet" viewBox="0 0 200 220">
+      <g stroke="#5b6a45" stroke-width="2" fill="none" stroke-linecap="round">
+        <path d="M110 218 C104 170 90 120 62 70"/>
+        <path d="M112 218 C114 160 122 110 142 62"/>
+        <path d="M108 218 C100 180 70 150 42 128"/>
+        <path d="M114 218 C130 180 160 160 178 150"/>
+        <path d="M110 218 C108 150 104 90 102 36"/>
+      </g>
+      <use href="#leaf" transform="translate(84 112) rotate(-140) scale(1.2)"/>
+      <use href="#leaf" transform="translate(120 104) rotate(-40) scale(1.2)"/>
+      <use href="#leaf" transform="translate(70 150) rotate(-165) scale(1)"/>
+      <use href="#leaf" transform="translate(138 158) rotate(-15) scale(1)"/>
+      <use href="#leaf" transform="translate(104 70) rotate(-100) scale(.9)"/>
+      <use href="#leaf" transform="translate(50 80) rotate(-200) scale(.9)"/>
+      <use href="#leaf" transform="translate(152 72) rotate(20) scale(.9)"/>
+      <use href="#bb" transform="translate(30 58) scale(1.2)"/>
+      <use href="#bb" transform="translate(170 50) scale(1.1)"/>
+      <use href="#bb" transform="translate(86 28) scale(1)"/>
+      <use href="#bb" transform="translate(126 26) scale(1)"/>
+      <use href="#bb" transform="translate(20 120) scale(1)"/>
+      <use href="#rose-blush" transform="translate(42 128) scale(.85)"/>
+      <use href="#rose-red" transform="translate(178 148) scale(.75)"/>
+      <use href="#rose-red" transform="translate(62 68) scale(1.3)"/>
+      <use href="#rose-blush" transform="translate(142 62) scale(1.1)"/>
+      <use href="#rose-red" transform="translate(102 36) scale(1.05)"/>
+    </symbol>
+    <symbol id="cluster" viewBox="0 0 120 120">
+      <use href="#leaf" transform="translate(60 60) rotate(-150) scale(1.3)"/>
+      <use href="#leaf" transform="translate(60 60) rotate(-30) scale(1.3)"/>
+      <use href="#leaf" transform="translate(60 60) rotate(80) scale(1.2)"/>
+      <use href="#leaf" transform="translate(60 60) rotate(160) scale(1)"/>
+      <use href="#bb" transform="translate(22 40) scale(1.1)"/>
+      <use href="#bb" transform="translate(98 36) scale(1.1)"/>
+      <use href="#bb" transform="translate(84 100) rotate(120) scale(1)"/>
+      <use href="#rose-blush" transform="translate(40 66) scale(.95)"/>
+      <use href="#rose-red" transform="translate(80 70) scale(.9)"/>
+      <use href="#rose-red" transform="translate(58 46) scale(1.2)"/>
+    </symbol>
+    <symbol id="garland" viewBox="0 0 280 90">
+      <path d="M8 58 C60 34 100 60 140 50 C180 60 220 34 272 58" fill="none" stroke="#5b6a45" stroke-width="1.8" stroke-linecap="round"/>
+      <use href="#leaf" transform="translate(40 46) rotate(-160) scale(1)"/>
+      <use href="#leaf" transform="translate(30 50) rotate(-20) scale(.8)"/>
+      <use href="#leaf" transform="translate(74 48) rotate(160) scale(1)"/>
+      <use href="#leaf" transform="translate(240 46) rotate(-20) scale(1)"/>
+      <use href="#leaf" transform="translate(250 50) rotate(200) scale(.8)"/>
+      <use href="#leaf" transform="translate(206 48) rotate(20) scale(1)"/>
+      <use href="#leaf" transform="translate(140 50) rotate(-120) scale(1.1)"/>
+      <use href="#leaf" transform="translate(140 50) rotate(-60) scale(1.1)"/>
+      <use href="#bb" transform="translate(20 52) scale(1)"/>
+      <use href="#bb" transform="translate(262 52) scale(1)"/>
+      <use href="#bb" transform="translate(88 40) scale(.9)"/>
+      <use href="#bb" transform="translate(192 40) scale(.9)"/>
+      <use href="#rose-red" transform="translate(58 52) scale(.6)"/>
+      <use href="#rose-red" transform="translate(222 52) scale(.6)"/>
+      <use href="#rose-blush" transform="translate(110 52) scale(.85)"/>
+      <use href="#rose-blush" transform="translate(170 52) scale(.85)"/>
+      <use href="#rose-red" transform="translate(140 46) scale(1.15)"/>
+    </symbol>
     <symbol id="corner" viewBox="0 0 100 100">
       <g fill="none" stroke="currentColor" stroke-linecap="round">
         <path d="M6 94 V34 C6 18 18 6 34 6 H94" stroke-width="1.3"/>
@@ -367,6 +520,8 @@
     </symbol>
   </svg>
 
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
   <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
   <button class="music" id="musicBtn" aria-label="Play or pause music">♪</button>
 
@@ -377,8 +532,11 @@
     <div class="stage">
       <div class="env" id="env">
         <div class="env-back"></div>
+        <div class="flower l" id="flowerL"><svg viewBox="0 0 200 220"><use href="#bouquet"/></svg></div>
+        <div class="flower r" id="flowerR"><svg viewBox="0 0 200 220"><use href="#bouquet"/></svg></div>
         <div class="env-photo" id="envPhoto"><img src="images/cover.jpg" width="2048" height="1365" alt="Vitali and Ginelle"></div>
         <div class="env-front"></div>
+        <div class="sprig" id="sprig"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div>
         <div class="env-flap" id="envFlap">
           <svg viewBox="0 0 400 240" preserveAspectRatio="none">
             <defs>
@@ -429,7 +587,7 @@
        JOIN US
        ========================================================= -->
   <section class="bg-cream joinus" style="padding-top:30px;">
-    <svg class="divider reveal"><use href="#divider"/></svg>
+    <div class="garland reveal"><svg viewBox="0 0 280 90"><use href="#garland"/></svg></div>
     <p class="eyebrow caps reveal">Together with our families, we invite you to celebrate our wedding</p>
     <div class="big-date reveal">
       <span class="side">Saturday</span>
@@ -457,7 +615,7 @@
     <h2 class="title script reveal">The Couple</h2>
     <svg class="divider reveal"><use href="#divider"/></svg>
 
-    <div class="couple-photo-wrap reveal"><img src="images/couple.jpg" width="1365" height="2048" alt="Vitali and Ginelle"></div>
+    <div class="couple-photo-wrap reveal"><img src="images/couple.jpg" width="1365" height="2048" alt="Vitali and Ginelle"><div class="deco tr"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div><div class="deco bl"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div></div>
 
     <div class="couple-names reveal">
       <div class="name script">Vitali</div>
@@ -547,7 +705,8 @@
        ENTOURAGE
        ========================================================= -->
   <section class="bg-burgundy">
-    <div class="frame">
+    <div class="frame has-top-garland">
+      <div class="garland top"><svg viewBox="0 0 280 90"><use href="#garland"/></svg></div>
       <svg class="corner tl"><use href="#corner"/></svg>
       <svg class="corner tr"><use href="#corner"/></svg>
       <svg class="corner bl"><use href="#corner"/></svg>
@@ -621,8 +780,8 @@
     <h2 class="title script reveal">Our Moments</h2>
     <svg class="divider reveal"><use href="#divider"/></svg>
     <div class="gallery">
-      <figure class="reveal"><img src="images/photo1.jpg" width="2048" height="1365" alt="Vitali and Ginelle at a cafe" loading="lazy"></figure>
-      <figure class="reveal"><img src="images/photo2.jpg" width="2048" height="1365" alt="Ginelle and Vitali pre-wedding photo" loading="lazy"></figure>
+      <figure class="reveal"><div class="deco"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div><img src="images/photo1.jpg" width="2048" height="1365" alt="Vitali and Ginelle at a cafe" loading="lazy"></figure>
+      <figure class="reveal"><div class="deco"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div><img src="images/photo2.jpg" width="2048" height="1365" alt="Ginelle and Vitali pre-wedding photo" loading="lazy"></figure>
     </div>
   </section>
 
@@ -636,10 +795,12 @@
 
     <div class="details">
       <div class="detail-card reveal">
+        <div class="mini-garland"><svg viewBox="0 0 280 90"><use href="#garland"/></svg></div>
         <h3 class="script">Adults-Only Event</h3>
         <p>To allow all guests to fully relax and enjoy the festivities, we have chosen to make our wedding an adults-only celebration. Thank you for your understanding and support.</p>
       </div>
       <div class="detail-card reveal">
+        <div class="mini-garland"><svg viewBox="0 0 280 90"><use href="#garland"/></svg></div>
         <h3 class="script">Reminders</h3>
         <div class="reminders">
           <span>BE ON TIME</span>
@@ -661,6 +822,8 @@
     <p class="rsvp-intro reveal">We'd love to know if you can join us. Kindly let us know as soon as possible.</p>
 
     <form class="rsvp-card reveal" id="rsvpForm">
+      <div class="deco tr"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div>
+      <div class="deco bl"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div>
       <label class="q" for="name">Your name *</label>
       <input type="text" id="name" name="name" required autocomplete="name">
 
@@ -702,7 +865,10 @@
        CLOSING
        ========================================================= -->
   <section class="bg-burgundy">
-    <div class="frame reveal" style="max-width:440px;">
+    <div class="frame reveal closing-frame has-top-garland" style="max-width:440px;">
+      <div class="garland top"><svg viewBox="0 0 280 90"><use href="#garland"/></svg></div>
+      <div class="deco bl"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div>
+      <div class="deco br"><svg viewBox="0 0 120 120"><use href="#cluster"/></svg></div>
       <svg class="corner tl"><use href="#corner"/></svg>
       <svg class="corner tr"><use href="#corner"/></svg>
       <svg class="corner bl"><use href="#corner"/></svg>
@@ -734,6 +900,9 @@
     const coverText = document.getElementById("coverText");
     const hint = document.getElementById("scrollHint");
     const stageText = document.getElementById("stageText");
+    const flowerL = document.getElementById("flowerL");
+    const flowerR = document.getElementById("flowerR");
+    const sprig = document.getElementById("sprig");
 
     const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
     const range = (p, a, b) => clamp((p - a) / (b - a));
@@ -766,11 +935,20 @@
 
       const f = easeInOut(range(p, .34, .52));
       flap.style.transform = `rotateX(${f * 180}deg)`;
-      flap.style.zIndex = f > .5 ? 0 : 4;
+      flap.style.zIndex = f > .5 ? 0 : 5;
 
-      const r = range(p, .52, .82);
+      // Roses rise first, then the photo pops out
+      const fl = easeOutBack(range(p, .5, .8));
+      flowerL.style.transform = `translate(${-30 * fl}%, ${-64 * fl}%) rotate(${-26 * fl}deg)`;
+      flowerR.style.transform = `translate(${30 * fl}%, ${-64 * fl}%) rotate(${26 * fl}deg)`;
+
+      const r = range(p, .54, .84);
       const pop = easeOutBack(r);
       photo.style.transform = `translateY(${-80 * pop}%) rotate(${-3 * r}deg) scale(${.94 + .06 * pop})`;
+
+      const sp = range(p, .76, .93);
+      sprig.style.opacity = sp;
+      sprig.style.transform = `scale(${.6 + .4 * easeOutBack(sp)})`;
 
       const t = range(p, .8, .95);
       stageText.style.opacity = t;
@@ -794,6 +972,39 @@
       e.stopPropagation();
       if (bgm.paused) { bgm.play(); musicBtn.style.opacity = 1; }
       else { bgm.pause(); musicBtn.style.opacity = .5; }
+    });
+
+    /* ---------- Falling rose petals ---------- */
+    (function petals() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const box = document.getElementById("petals");
+      const colors = ["#8c1430", "#a8243f", "#e9b3bf", "#f3d0d7", "#6e0e22"];
+      const count = window.innerWidth < 600 ? 10 : 16;
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement("span");
+        el.className = "petal";
+        const size = 9 + Math.random() * 9;
+        el.style.width = size + "px";
+        el.style.height = size * 1.25 + "px";
+        el.style.left = Math.random() * 100 + "%";
+        el.style.background = colors[i % colors.length];
+        el.style.animationDuration = 9 + Math.random() * 9 + "s";
+        el.style.animationDelay = -Math.random() * 18 + "s";
+        box.appendChild(el);
+      }
+    })();
+
+    /* ---------- Gold sparkles on burgundy sections ---------- */
+    document.querySelectorAll(".bg-burgundy, .bg-ink").forEach(sec => {
+      for (let i = 0; i < 14; i++) {
+        const s = document.createElement("span");
+        s.className = "sparkle";
+        s.style.left = Math.random() * 100 + "%";
+        s.style.top = Math.random() * 100 + "%";
+        s.style.animationDelay = Math.random() * 4 + "s";
+        s.style.animationDuration = 3 + Math.random() * 3 + "s";
+        sec.appendChild(s);
+      }
     });
 
     /* ---------- Fade-in on scroll ---------- */
