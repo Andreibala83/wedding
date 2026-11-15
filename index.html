@@ -89,7 +89,7 @@
     .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: var(--paper), radial-gradient(ellipse at center, #fffaf3 0%, var(--cream) 75%); }
 
     .env {
-      --W: min(78vw, 420px);
+      --W: min(78vw, 420px, calc((100vh - 190px) / 1.25));   /* also fits short laptop screens */
       position: absolute; left: 50%; top: 50%;
       width: var(--W); height: calc(var(--W) * 0.72);
       margin-left: calc(var(--W) / -2); margin-top: calc(var(--W) * -0.36);
