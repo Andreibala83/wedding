@@ -85,9 +85,7 @@
     /* =========================================================
        SCROLL ENVELOPE
        ========================================================= */
-    .stage-wrap { height: 100vh; height: 100svh; position: relative; }
-    html.locked, html.locked body { overflow: hidden; height: 100%; }
-    html.locked body { touch-action: none; }
+    .stage-wrap { height: 380vh; position: relative; }
     .stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: var(--paper), radial-gradient(ellipse at center, #fffaf3 0%, var(--cream) 75%); }
 
     .env {
@@ -103,10 +101,10 @@
         repeating-linear-gradient(45deg, rgba(200,164,100,.12) 0 2px, transparent 2px 14px),
         var(--burgundy-ink);
     }
-    .env-photo { position: absolute; left: 6%; width: 88%; top: 6%; border: 6px solid #fff; background: #fff; box-shadow: 0 10px 26px rgba(0,0,0,.3); z-index: 3; will-change: transform; }
+    .env-photo { position: absolute; left: 6%; width: 88%; top: 6%; border: 6px solid #fff; background: #fff; box-shadow: 0 10px 26px rgba(0,0,0,.3); z-index: 2; will-change: transform; }
     .env-photo img { width: 100%; height: auto; }
     .env-front {
-      position: absolute; inset: 0; z-index: 4; border-radius: 3px;
+      position: absolute; inset: 0; z-index: 3; border-radius: 3px;
       background: linear-gradient(160deg, #96122f, var(--burgundy) 55%, var(--burgundy-deep));
       clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
     }
@@ -116,7 +114,7 @@
         linear-gradient(to top right, transparent 49.6%, rgba(0,0,0,.2) 50%, transparent 50.6%),
         linear-gradient(to top left,  transparent 49.6%, rgba(0,0,0,.2) 50%, transparent 50.6%);
     }
-    .env-flap { position: absolute; left: 0; top: 0; width: 100%; height: 66%; transform-origin: top center; z-index: 5; will-change: transform; }
+    .env-flap { position: absolute; left: 0; top: 0; width: 100%; height: 66%; transform-origin: top center; z-index: 4; will-change: transform; }
     .env-flap svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 6px 8px rgba(0,0,0,.35)); }
 
     .seal { position: absolute; left: 50%; z-index: 6; transform: translate(-50%, -50%); will-change: transform, opacity; }
@@ -128,20 +126,7 @@
     .cover-text .names .amp { font-family: 'Pinyon Script', cursive; letter-spacing: 0; font-size: 1.6em; display: block; line-height: .9; color: var(--gold-light); padding: 0; }
     .cover-text .date { margin-top: 18px; font-size: 11px; color: var(--gold-light); }
 
-    /* Flowers that rise out of the envelope */
-    .flower { position: absolute; top: 2%; width: 60%; z-index: 2; will-change: transform; }
-    .flower svg { width: 100%; height: auto; display: block; overflow: visible; }
-    .flower.l { left: 2%; }
-    .flower.r { right: 2%; }
-    .flower.r svg { transform: scaleX(-1); }
-    .sprig { position: absolute; left: -24%; bottom: -20%; width: 58%; z-index: 6; opacity: 0; transform-origin: 30% 80%; will-change: transform, opacity; pointer-events: none; }
-    .sprig svg { width: 100%; height: auto; display: block; overflow: visible; transform: rotate(-24deg); }
-
     .scroll-hint { position: absolute; bottom: 5%; left: 0; right: 0; text-align: center; color: var(--cream); font-size: 10px; z-index: 7; }
-    .scroll-hint.done { bottom: 1.2%; transition: opacity .6s ease; }
-    .scroll-hint.done .hint-text { display: none; }
-    .scroll-hint.done .arrow { border-color: var(--burgundy); }
-    .stage { cursor: pointer; }
     .scroll-hint .arrow { display: block; width: 18px; height: 18px; margin: 10px auto 0; border-right: 1px solid var(--gold-light); border-bottom: 1px solid var(--gold-light); transform: rotate(45deg); animation: bob 1.6s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform: translateY(0) rotate(45deg); } 50% { transform: translateY(8px) rotate(45deg); } }
 
@@ -341,63 +326,6 @@
 
   <!-- Reusable gold ornaments -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <radialGradient id="gRed" cx="45%" cy="40%" r="65%">
-        <stop offset="0" stop-color="#c2304f"/><stop offset=".7" stop-color="#8c1430"/><stop offset="1" stop-color="#5e0a1c"/>
-      </radialGradient>
-      <radialGradient id="gBlush" cx="45%" cy="40%" r="65%">
-        <stop offset="0" stop-color="#fdeef0"/><stop offset=".7" stop-color="#eab3bf"/><stop offset="1" stop-color="#c47d8e"/>
-      </radialGradient>
-      <g id="rose-red">
-        <circle r="18" fill="url(#gRed)"/>
-        <path d="M-17 -3 C-15 -15 4 -20 15 -10" fill="none" stroke="#5e0a1c" stroke-width="1.2" opacity=".7"/>
-        <path d="M-15 6 C-10 16 10 17 16 5" fill="none" stroke="#5e0a1c" stroke-width="1.2" opacity=".6"/>
-        <path d="M-10 2 C-11 -8 7 -11 10 -2 C12 7 -3 11 -6 4 C-8 -1 0 -5 3 -2 C5 1 1 3 -1 1" fill="none" stroke="#e07a90" stroke-width="1.5" stroke-linecap="round"/>
-      </g>
-      <g id="rose-blush">
-        <circle r="18" fill="url(#gBlush)"/>
-        <path d="M-17 -3 C-15 -15 4 -20 15 -10" fill="none" stroke="#b46779" stroke-width="1.2" opacity=".8"/>
-        <path d="M-15 6 C-10 16 10 17 16 5" fill="none" stroke="#b46779" stroke-width="1.2" opacity=".7"/>
-        <path d="M-10 2 C-11 -8 7 -11 10 -2 C12 7 -3 11 -6 4 C-8 -1 0 -5 3 -2 C5 1 1 3 -1 1" fill="none" stroke="#b5596d" stroke-width="1.5" stroke-linecap="round"/>
-      </g>
-      <g id="leaf">
-        <path d="M0 0 C8 -9 26 -10 36 0 C26 10 8 9 0 0 Z" fill="#6f805a"/>
-        <path d="M3 0 H31" stroke="#4c5a3b" stroke-width=".8"/>
-      </g>
-      <g id="bb">
-        <g stroke="#8b9474" stroke-width=".7" fill="none"><path d="M0 0 L-6 -10 M0 0 L4 -12 M0 0 L10 -6 M-6 -10 L-10 -15 M4 -12 L2 -19"/></g>
-        <g fill="#fffaf2" stroke="#e5d6c3" stroke-width=".5">
-          <circle cx="-6" cy="-10" r="2.4"/><circle cx="-10" cy="-15" r="2.1"/><circle cx="4" cy="-12" r="2.4"/>
-          <circle cx="2" cy="-19" r="2.1"/><circle cx="10" cy="-6" r="2.3"/><circle cx="-1" cy="-7" r="1.7"/>
-        </g>
-      </g>
-    </defs>
-    <symbol id="bouquet" viewBox="0 0 200 220">
-      <g stroke="#5b6a45" stroke-width="2" fill="none" stroke-linecap="round">
-        <path d="M110 218 C104 170 90 120 62 70"/>
-        <path d="M112 218 C114 160 122 110 142 62"/>
-        <path d="M108 218 C100 180 70 150 42 128"/>
-        <path d="M114 218 C130 180 160 160 178 150"/>
-        <path d="M110 218 C108 150 104 90 102 36"/>
-      </g>
-      <use href="#leaf" transform="translate(84 112) rotate(-140) scale(1.2)"/>
-      <use href="#leaf" transform="translate(120 104) rotate(-40) scale(1.2)"/>
-      <use href="#leaf" transform="translate(70 150) rotate(-165) scale(1)"/>
-      <use href="#leaf" transform="translate(138 158) rotate(-15) scale(1)"/>
-      <use href="#leaf" transform="translate(104 70) rotate(-100) scale(.9)"/>
-      <use href="#leaf" transform="translate(50 80) rotate(-200) scale(.9)"/>
-      <use href="#leaf" transform="translate(152 72) rotate(20) scale(.9)"/>
-      <use href="#bb" transform="translate(30 58) scale(1.2)"/>
-      <use href="#bb" transform="translate(170 50) scale(1.1)"/>
-      <use href="#bb" transform="translate(86 28) scale(1)"/>
-      <use href="#bb" transform="translate(126 26) scale(1)"/>
-      <use href="#bb" transform="translate(20 120) scale(1)"/>
-      <use href="#rose-blush" transform="translate(42 128) scale(.85)"/>
-      <use href="#rose-red" transform="translate(178 148) scale(.75)"/>
-      <use href="#rose-red" transform="translate(62 68) scale(1.3)"/>
-      <use href="#rose-blush" transform="translate(142 62) scale(1.1)"/>
-      <use href="#rose-red" transform="translate(102 36) scale(1.05)"/>
-    </symbol>
     <symbol id="corner" viewBox="0 0 100 100">
       <g fill="none" stroke="currentColor" stroke-linecap="round">
         <path d="M6 94 V34 C6 18 18 6 34 6 H94" stroke-width="1.3"/>
@@ -449,11 +377,8 @@
     <div class="stage">
       <div class="env" id="env">
         <div class="env-back"></div>
-        <div class="flower l" id="flowerL"><svg viewBox="0 0 200 220"><use href="#bouquet"/></svg></div>
-        <div class="flower r" id="flowerR"><svg viewBox="0 0 200 220"><use href="#bouquet"/></svg></div>
         <div class="env-photo" id="envPhoto"><img src="images/cover.jpg" width="2048" height="1365" alt="Vitali and Ginelle"></div>
         <div class="env-front"></div>
-        <div class="sprig" id="sprig"><svg viewBox="0 0 200 220"><use href="#bouquet"/></svg></div>
         <div class="env-flap" id="envFlap">
           <svg viewBox="0 0 400 240" preserveAspectRatio="none">
             <defs>
@@ -491,7 +416,7 @@
         <div class="date caps">11 · 28 · 2026</div>
       </div>
 
-      <div class="scroll-hint caps" id="scrollHint"><span class="hint-text">Scroll or tap to open</span><span class="arrow"></span></div>
+      <div class="scroll-hint caps" id="scrollHint">Scroll to open<span class="arrow"></span></div>
 
       <div class="stage-text" id="stageText">
         <p class="moment caps">The moment has arrived</p>
@@ -800,11 +725,8 @@
     const EVENT_PLACE  = "San Isidro Labrador Parish, Titay, Zamboanga Sibugay";
     const SCRIPT_URL   = "PASTE_YOUR_WEB_APP_URL_HERE";            // Google Apps Script URL for RSVP
 
-    /* ---------- Envelope: the first scroll or tap plays the whole opening ----------
-       Scrolling is paused while it plays, so fast scrolling can't skip the reveal. */
-    const OPEN_DURATION = 4200;   // milliseconds — make bigger for a slower opening
-
-    const stage = document.querySelector(".stage");
+    /* ---------- Envelope opens while scrolling ---------- */
+    const stageWrap = document.getElementById("stageWrap");
     const env = document.getElementById("env");
     const flap = document.getElementById("envFlap");
     const photo = document.getElementById("envPhoto");
@@ -812,9 +734,6 @@
     const coverText = document.getElementById("coverText");
     const hint = document.getElementById("scrollHint");
     const stageText = document.getElementById("stageText");
-    const flowerL = document.getElementById("flowerL");
-    const flowerR = document.getElementById("flowerR");
-    const sprig = document.getElementById("sprig");
 
     const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
     const range = (p, a, b) => clamp((p - a) / (b - a));
@@ -822,24 +741,20 @@
     const easeInOut = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2;
     const easeOutBack = t => { const c = 1.9, c3 = c + 1; return 1 + c3*Math.pow(t-1,3) + c*Math.pow(t-1,2); };
 
-    let state = "closed";   // closed → opening → open
-    let progress = 0;
+    function animateEnvelope() {
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const rect = stageWrap.getBoundingClientRect();
+      const p = clamp(-rect.top / (rect.height - vh));
 
-    function render(p) {
-      progress = p;
-      const vw = window.innerWidth, vh = stage.clientHeight;
       const W = env.offsetWidth, H = env.offsetHeight;
-
-      // 1) Full-screen envelope shrinks to normal size
       const sx0 = (vw / W) * 1.04, sy0 = (vh / H) * 1.35;
       const k = easeInOut(range(p, 0, .3));
+      env.style.transform = `scale(${lerp(sx0, 1, k)}, ${lerp(sy0, 1, k)})`;
       const sy = lerp(sy0, 1, k);
-      env.style.transform = `scale(${lerp(sx0, 1, k)}, ${sy})`;
 
       coverText.style.opacity = 1 - range(p, 0, .12);
-      if (state !== "open") hint.style.opacity = 1 - range(p, 0, .05);
+      hint.style.opacity = 1 - range(p, 0, .05);
 
-      // Seal follows the flap tip, then fades
       const tipY = vh * .5 + (H * .66 - H / 2) * sy;
       const sealW = lerp(120, 56, k);
       seal.style.width = sealW + "px";
@@ -849,89 +764,25 @@
       seal.style.opacity = 1 - sealFade;
       seal.style.transform = `translate(-50%, -50%) scale(${1 - sealFade * .4})`;
 
-      // 2) Flap opens
       const f = easeInOut(range(p, .34, .52));
       flap.style.transform = `rotateX(${f * 180}deg)`;
-      flap.style.zIndex = f > .5 ? 0 : 5;
+      flap.style.zIndex = f > .5 ? 0 : 4;
 
-      // 3) Flowers rise first, then the photo pops out
-      const fl = easeOutBack(range(p, .5, .8));
-      flowerL.style.transform = `translate(${-30 * fl}%, ${-64 * fl}%) rotate(${-26 * fl}deg)`;
-      flowerR.style.transform = `translate(${30 * fl}%, ${-64 * fl}%) rotate(${26 * fl}deg)`;
-
-      const r = range(p, .56, .86);
+      const r = range(p, .52, .82);
       const pop = easeOutBack(r);
       photo.style.transform = `translateY(${-80 * pop}%) rotate(${-3 * r}deg) scale(${.94 + .06 * pop})`;
 
-      // 4) Front flowers + "We're getting married"
-      const sp = range(p, .78, .95);
-      sprig.style.opacity = sp;
-      sprig.style.transform = `scale(${.6 + .4 * easeOutBack(sp)})`;
-
-      const t = range(p, .82, .97);
+      const t = range(p, .8, .95);
       stageText.style.opacity = t;
       stageText.style.transform = `translateY(${(1 - t) * 20}px)`;
     }
 
-    function finish() {
-      state = "open";
-      document.documentElement.classList.remove("locked");
-      hint.classList.add("done");
-      hint.style.opacity = 1;
-    }
-
-    function startOpening() {
-      if (state !== "closed") return;
-      state = "opening";
-      const t0 = performance.now();
-      requestAnimationFrame(function frame(now) {
-        const p = Math.min(1, (now - t0) / OPEN_DURATION);
-        render(p);
-        if (p < 1) requestAnimationFrame(frame); else finish();
-      });
-    }
-
-    // Always start at the top so every guest sees the opening
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-    window.scrollTo(0, 0);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      render(1); finish();
-    } else {
-      document.documentElement.classList.add("locked");
-      render(0);
-    }
-
-    // What starts the opening: scroll wheel, swipe up, arrow/space keys, or a tap
-    window.addEventListener("wheel", e => {
-      if (state === "open") return;
-      e.preventDefault();
-      if (e.deltaY > 0) startOpening();
-    }, { passive: false });
-
-    let touchY = null;
-    window.addEventListener("touchstart", e => { touchY = e.touches[0].clientY; }, { passive: true });
-    window.addEventListener("touchmove", e => {
-      if (state === "open") return;
-      e.preventDefault();
-      if (touchY !== null && touchY - e.touches[0].clientY > 8) startOpening();
-    }, { passive: false });
-
-    window.addEventListener("keydown", e => {
-      if (state === "open") return;
-      if (["ArrowDown", "PageDown", " ", "Spacebar", "ArrowUp", "PageUp", "Home", "End"].includes(e.key)) {
-        e.preventDefault();
-        if (["ArrowDown", "PageDown", " ", "Spacebar"].includes(e.key)) startOpening();
-      }
-    });
-
-    stage.addEventListener("click", startOpening);
-
+    let ticking = false;
     window.addEventListener("scroll", () => {
-      if (state !== "open" && window.scrollY > 0) { window.scrollTo(0, 0); startOpening(); }
+      if (!ticking) { requestAnimationFrame(() => { animateEnvelope(); ticking = false; }); ticking = true; }
     }, { passive: true });
-
-    window.addEventListener("resize", () => render(progress));
+    window.addEventListener("resize", animateEnvelope);
+    animateEnvelope();
 
     /* ---------- Music (plays after the first tap) ---------- */
     const bgm = document.getElementById("bgm");
