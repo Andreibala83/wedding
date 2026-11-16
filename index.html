@@ -50,7 +50,7 @@
       font-family: 'Cormorant Garamond', serif;
       background: var(--burgundy-deep);
       color: var(--text);
-      overflow-x: hidden;
+      overflow-x: clip;
       -webkit-font-smoothing: antialiased;
     }
     img { display: block; max-width: 100%; height: auto; }
@@ -63,6 +63,7 @@
     .bg-ink      { background: var(--paper), var(--burgundy-ink); color: var(--cream); }
 
     section { position: relative; padding: 84px 22px; text-align: center; }
+    section, footer { overflow-x: clip; }   /* flowers may peek past the edge without making the page scroll sideways */
 
     /* Shared bits */
     .eyebrow { font-size: 11px; color: var(--burgundy-soft); }
@@ -306,6 +307,15 @@
     .music { position: fixed; right: 16px; bottom: 16px; z-index: 40; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--gold); background: var(--burgundy); color: var(--gold-light); font-size: 18px; box-shadow: 0 4px 14px rgba(0,0,0,.35); cursor: pointer; display: none; }
     .music.has-audio { display: block; }
 
+    .venues.single { grid-template-columns: 1fr !important; max-width: 460px; }
+    .attire-card { max-width: 760px; margin: 0 auto 22px; }
+    .attire-card .attire-type { color: var(--burgundy); }
+    .attire-card .attire-note { color: var(--text); }
+    .attire-card .swatches { margin-top: 22px; }
+    .attire-card .swatches span { border-color: #fff; }
+    .see-you { font-size: clamp(40px, 9vw, 56px); color: var(--burgundy); margin-top: 26px; line-height: 1.1; }
+    .frame .parents { margin: 6px auto 0; }
+
     /* =========================================================
        FLOWERS & DECORATIONS
        ========================================================= */
@@ -494,38 +504,19 @@
   </div>
 
   <!-- =========================================================
-       JOIN US
+       1. SAVE THE DATE   (client page: Save the Date)
        ========================================================= -->
   <section class="bg-cream joinus" style="padding-top:30px;">
     <div class="garland reveal"><img src="garland.webp" alt="" loading="lazy"></div>
-    <p class="eyebrow caps reveal">Together with our families, we invite you to celebrate our wedding</p>
+    <p class="eyebrow caps reveal">Save the Date</p>
     <div class="big-date reveal">
       <span class="side">Saturday</span>
       <span class="num">28</span>
       <span class="side">November</span>
     </div>
     <div class="year reveal">2026</div>
-    <p class="place reveal">Titay &amp; Ipil, Zamboanga Sibugay</p>
-  </section>
 
-  <!-- =========================================================
-       CALENDAR
-       ========================================================= -->
-  <section class="bg-burgundy">
-    <div class="cal-month" id="calMonth"></div>
-    <div class="calendar reveal" id="calendar"></div>
-    <a class="btn btn-gold" id="addCal" target="_blank" rel="noopener">Add to calendar</a>
-  </section>
-
-  <!-- =========================================================
-       THE COUPLE
-       ========================================================= -->
-  <section class="bg-cream">
-    <p class="eyebrow caps reveal">Meet</p>
-    <h2 class="title script reveal">The Couple</h2>
-    <svg class="divider reveal"><use href="#divider"/></svg>
-
-    <div class="couple-photo-wrap reveal"><img src="couple.jpg" width="1365" height="2048" alt="Vitali and Ginelle"><div class="deco tr"><img src="rose-pink.webp" alt="" loading="lazy"></div><div class="deco bl"><img src="rose-crimson.webp" alt="" loading="lazy"></div></div>
+    <div style="margin-top:46px;"><div class="couple-photo-wrap reveal"><img src="couple.jpg" width="1365" height="2048" alt="Vitali and Ginelle"><div class="deco tr"><img src="rose-pink.webp" alt="" loading="lazy"></div><div class="deco bl"><img src="rose-crimson.webp" alt="" loading="lazy"></div></div></div>
 
     <div class="couple-names reveal">
       <div class="name script">Vitali</div>
@@ -534,21 +525,53 @@
       <div class="name script">Ginelle B.</div>
       <div class="surname caps">Deypalubos</div>
     </div>
+    <p class="eyebrow caps reveal" style="margin-top:14px;">Wedding</p>
+  </section>
 
-    <div class="parents reveal">
-      <div>
-        <div class="ptitle script">Attending Parents of the Groom</div>
-        <p>Andrew Empasis<br>Judith B. Deypalubos</p>
-      </div>
-      <div>
-        <div class="ptitle script">Parents of the Bride</div>
-        <p>Gilde D. Deypalubos<br>Juliet B. Deypalubos</p>
+  <!-- =========================================================
+       2. OUR MOMENTS   (photos from the Save the Date)
+       ========================================================= -->
+  <section class="bg-ink">
+    <p class="eyebrow caps reveal">Pre-wedding</p>
+    <h2 class="title script reveal">Our Moments</h2>
+    <svg class="divider reveal"><use href="#divider"/></svg>
+    <div class="gallery">
+      <figure class="reveal"><div class="deco"><img src="rose-pink.webp" alt="" loading="lazy"></div><img src="photo1.jpg" width="2048" height="1365" alt="Vitali and Ginelle at a cafe" loading="lazy"></figure>
+      <figure class="reveal"><div class="deco"><img src="rose-crimson.webp" alt="" loading="lazy"></div><img src="photo2.jpg" width="2048" height="1365" alt="Ginelle and Vitali pre-wedding photo" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       3. CALENDAR
+       ========================================================= -->
+  <section class="bg-burgundy">
+    <div class="cal-month" id="calMonth"></div>
+    <div class="calendar reveal" id="calendar"></div>
+    <a class="btn btn-gold" id="addCal" target="_blank" rel="noopener">Add to calendar</a>
+  </section>
+
+  <!-- =========================================================
+       4. THE CEREMONY   (client page: Invitation)
+       ========================================================= -->
+  <section class="bg-cream">
+    <p class="eyebrow caps reveal">Skatskov &amp; Deypalubos</p>
+    <h2 class="title script reveal">Wedding Ceremony</h2>
+    <svg class="divider reveal"><use href="#divider"/></svg>
+    <div class="venues single">
+      <div class="venue-card reveal">
+        <svg class="icon"><use href="#i-church"/></svg>
+        <h3 class="script">The Ceremony</h3>
+        <div class="time">10:00 in the morning</div>
+        <div class="place">San Isidro Labrador Parish</div>
+        <div class="addr">Titay, Zamboanga Sibugay</div>
+        <a class="btn btn-gold" target="_blank" rel="noopener"
+           href="https://www.google.com/maps/search/?api=1&query=San+Isidro+Labrador+Parish+Titay+Zamboanga+Sibugay">View map</a>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       ORDER OF THE DAY
+       5. ORDER OF THE DAY   (client page: Invitation)
        ========================================================= -->
   <section class="bg-burgundy">
     <p class="eyebrow caps reveal">The Program</p>
@@ -563,23 +586,13 @@
   </section>
 
   <!-- =========================================================
-       VENUES
+       6. THE RECEPTION   (client page: Invitation)
        ========================================================= -->
   <section class="bg-cream">
-    <p class="eyebrow caps reveal">Where to find us</p>
-    <h2 class="title script reveal">The Venues</h2>
+    <p class="eyebrow caps reveal">Join us after</p>
+    <h2 class="title script reveal">Wedding Reception</h2>
     <svg class="divider reveal"><use href="#divider"/></svg>
-
-    <div class="venues">
-      <div class="venue-card reveal">
-        <svg class="icon"><use href="#i-church"/></svg>
-        <h3 class="script">The Ceremony</h3>
-        <div class="time">10:00 in the morning</div>
-        <div class="place">San Isidro Labrador Parish</div>
-        <div class="addr">Titay, Zamboanga Sibugay</div>
-        <a class="btn btn-gold" target="_blank" rel="noopener"
-           href="https://www.google.com/maps/search/?api=1&query=San+Isidro+Labrador+Parish+Titay+Zamboanga+Sibugay">View map</a>
-      </div>
+    <div class="venues single">
       <div class="venue-card reveal">
         <svg class="icon"><use href="#i-glasses"/></svg>
         <h3 class="script">The Reception</h3>
@@ -593,26 +606,7 @@
   </section>
 
   <!-- =========================================================
-       ATTIRE
-       ========================================================= -->
-  <section class="bg-ink">
-    <p class="eyebrow caps reveal">What to wear</p>
-    <h2 class="title script reveal">Attire Guide</h2>
-    <svg class="divider reveal"><use href="#divider"/></svg>
-    <div class="attire-type reveal">FORMAL / SEMI-FORMAL</div>
-    <p class="attire-note reveal">We encourage you to dress according to our wedding theme</p>
-    <div class="swatches reveal">
-      <span style="background:#f4dfe2" title="Blush"></span>
-      <span style="background:#ebb9c1" title="Pink"></span>
-      <span style="background:#cf7c90" title="Rose"></span>
-      <span style="background:#9e3b52" title="Raspberry"></span>
-      <span style="background:#7b1a22" title="Wine"></span>
-      <span style="background:#560c1b" title="Burgundy"></span>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       ENTOURAGE
+       7. NUPTIAL + SECONDARY SPONSORS   (client pages: Nuptial, Secondary Sponsors)
        ========================================================= -->
   <section class="bg-burgundy">
     <div class="frame has-top-garland">
@@ -622,9 +616,22 @@
       <svg class="corner bl"><use href="#corner"/></svg>
       <svg class="corner br"><use href="#corner"/></svg>
 
-      <p class="eyebrow caps">Skatskov &amp; Deypalubos Nuptial</p>
-      <h2 class="title script">The Entourage</h2>
+      <p class="eyebrow caps">Skatskov &amp; Deypalubos</p>
+      <h2 class="title script">Nuptial</h2>
       <svg class="divider"><use href="#divider"/></svg>
+
+      <div class="parents">
+      <div>
+        <div class="ptitle script">Attending Parents of the Groom</div>
+        <p>Andrew Empasis<br>Judith B. Deypalubos</p>
+      </div>
+      <div>
+        <div class="ptitle script">Parents of the Bride</div>
+        <p>Gilde D. Deypalubos<br>Juliet B. Deypalubos</p>
+      </div>
+    </div>
+
+      <svg class="mini-divider"><use href="#divider"/></svg>
 
       <div class="group-label">Principal Sponsors</div>
       <div class="pairs">
@@ -683,25 +690,26 @@
   </section>
 
   <!-- =========================================================
-       GALLERY
-       ========================================================= -->
-  <section class="bg-ink">
-    <p class="eyebrow caps reveal">Pre-wedding</p>
-    <h2 class="title script reveal">Our Moments</h2>
-    <svg class="divider reveal"><use href="#divider"/></svg>
-    <div class="gallery">
-      <figure class="reveal"><div class="deco"><img src="rose-pink.webp" alt="" loading="lazy"></div><img src="photo1.jpg" width="2048" height="1365" alt="Vitali and Ginelle at a cafe" loading="lazy"></figure>
-      <figure class="reveal"><div class="deco"><img src="rose-crimson.webp" alt="" loading="lazy"></div><img src="photo2.jpg" width="2048" height="1365" alt="Ginelle and Vitali pre-wedding photo" loading="lazy"></figure>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       FINER DETAILS
+       8. FINER DETAILS   (client page: Finer Details)
        ========================================================= -->
   <section class="bg-cream">
     <p class="eyebrow caps reveal">Good to know</p>
     <h2 class="title script reveal">Finer Details</h2>
     <svg class="divider reveal"><use href="#divider"/></svg>
+
+    <div class="detail-card attire-card reveal">
+      <h3 class="script">Attire Guide</h3>
+      <div class="attire-type">FORMAL / SEMI-FORMAL</div>
+      <p class="attire-note">We encourage you to dress according to our wedding theme</p>
+      <div class="swatches reveal">
+      <span style="background:#f4dfe2" title="Blush"></span>
+      <span style="background:#ebb9c1" title="Pink"></span>
+      <span style="background:#cf7c90" title="Rose"></span>
+      <span style="background:#9e3b52" title="Raspberry"></span>
+      <span style="background:#7b1a22" title="Wine"></span>
+      <span style="background:#560c1b" title="Burgundy"></span>
+    </div>
+    </div>
 
     <div class="details">
       <div class="detail-card reveal">
@@ -720,6 +728,7 @@
       </div>
     </div>
     <p class="closing-line reveal">"Our hearts are full and we can't wait to share this joy with the people who matter most."</p>
+    <p class="see-you script reveal">See you on our big day!</p>
   </section>
 
   <!-- =========================================================
@@ -768,7 +777,6 @@
       <div class="unit"><span id="minutes">00</span><small>Mins</small></div>
       <div class="unit"><span id="seconds">00</span><small>Secs</small></div>
     </div>
-    <p class="follow script reveal">See you on our big day!</p>
   </section>
 
   <!-- =========================================================
