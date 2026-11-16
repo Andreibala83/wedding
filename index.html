@@ -313,6 +313,22 @@
     .attire-card .attire-note { color: var(--text); }
     .attire-card .swatches { margin-top: 22px; }
     .attire-card .swatches span { border-color: #fff; }
+    /* Finer details illustrations (from the client's printed page) */
+    .attire-card, .reminders-card { background: var(--paper), #f0e4e5 !important; }
+    .attire-visual { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+    .attire-figures { width: min(100%, 360px); height: auto; }
+    .attire-visual .swatches { margin-top: 0; }
+    .reminders-card { grid-column: 1 / -1; }
+    .details .detail-card { background: var(--paper), #f0e4e5 !important; }
+    @media (min-width: 768px) { .details { grid-template-columns: 1fr !important; } }
+    .reminder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 640px; margin: 4px auto 0; }
+    .reminder-grid figure { margin: 0; }
+    .reminder-grid figure { display: flex; flex-direction: column; align-items: center; }
+    .reminder-grid img { width: 100%; aspect-ratio: 1 / 1.05; height: auto; object-fit: contain; }
+    .reminder-grid figcaption { font-family: 'Cinzel', serif; font-weight: 600; font-size: 12px; letter-spacing: .14em; color: var(--burgundy); margin-top: 2px; }
+    @media (max-width: 520px) {
+      .reminder-grid figcaption { font-size: 9.5px; letter-spacing: .08em; }
+    }
     .see-you { font-size: clamp(40px, 9vw, 56px); color: var(--burgundy); margin-top: 26px; line-height: 1.1; }
     .frame .parents { margin: 6px auto 0; }
 
@@ -701,14 +717,17 @@
       <h3 class="script">Attire Guide</h3>
       <div class="attire-type">FORMAL / SEMI-FORMAL</div>
       <p class="attire-note">We encourage you to dress according to our wedding theme</p>
-      <div class="swatches reveal">
+      <div class="attire-visual">
+      <img class="attire-figures" src="fd-attire.webp" alt="Formal and semi-formal outfit examples" loading="lazy">
+      <div class="swatches">
       <span style="background:#f4dfe2" title="Blush"></span>
       <span style="background:#ebb9c1" title="Pink"></span>
       <span style="background:#cf7c90" title="Rose"></span>
       <span style="background:#9e3b52" title="Raspberry"></span>
       <span style="background:#7b1a22" title="Wine"></span>
       <span style="background:#560c1b" title="Burgundy"></span>
-    </div>
+      </div>
+      </div>
     </div>
 
     <div class="details">
@@ -717,13 +736,13 @@
         <h3 class="script">Adults-Only Event</h3>
         <p>To allow all guests to fully relax and enjoy the festivities, we have chosen to make our wedding an adults-only celebration. Thank you for your understanding and support.</p>
       </div>
-      <div class="detail-card reveal">
+      <div class="detail-card reminders-card reveal">
         <div class="mini-garland"><img src="garland.webp" alt="" loading="lazy"></div>
         <h3 class="script">Reminders</h3>
-        <div class="reminders">
-          <span>BE ON TIME</span>
-          <span>HAVE FUN</span>
-          <span>FINISH THE EVENT</span>
+        <div class="reminder-grid">
+          <figure><img src="fd-ontime.webp" alt="" loading="lazy"><figcaption>BE ON TIME</figcaption></figure>
+          <figure><img src="fd-fun.webp" alt="" loading="lazy"><figcaption>HAVE FUN</figcaption></figure>
+          <figure><img src="fd-finish.webp" alt="" loading="lazy"><figcaption>FINISH THE EVENT</figcaption></figure>
         </div>
       </div>
     </div>
